@@ -8,14 +8,14 @@ module.exports = function shopifyNodePreset(context, options = {}) {
 
   return {
     presets: [
-      [require.resolve('babel-preset-env'), {
+      [require.resolve('@babel/preset-env'), {
         modules,
         useBuiltIns: true,
         targets: {
           node: version,
         },
       }],
-      require.resolve('babel-preset-stage-3'),
+      require.resolve('@babel/preset-stage-3'),
     ],
     plugins: nonStandardPlugins(options),
   };

@@ -6,14 +6,16 @@ module.exports = function shopifyWebPreset(context, options = {}) {
 
   return {
     presets: [
-      [require.resolve('babel-preset-env'), {
+      [require.resolve('@babel/preset-env'), {
         modules,
         useBuiltIns: true,
         targets: {
           browsers: options.browsers || browsers,
         },
       }],
-      require.resolve('babel-preset-stage-3'),
+      [require.resolve('@babel/preset-stage-3'), {
+        useBuiltIns: true,
+      }],
     ],
     plugins: nonStandardPlugins(options),
   };
