@@ -34,6 +34,7 @@
     "eslint-plugin-shopify": "^16.0.1"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.34",
     "@babel/plugin-transform-runtime": "^7.0.0-beta.34",
     "@babel/preset-env": "^7.0.0-beta.34",
     "@babel/preset-flow": "^7.0.0-beta.34",
