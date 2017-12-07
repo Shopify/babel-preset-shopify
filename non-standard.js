@@ -1,4 +1,4 @@
-module.exports = function shopifyNonStandardPlugins(options = {}) {
+module.exports = function shopifyNonStandardPreset(options = {}) {
   const {inlineEnv = false} = options;
 
   const plugins = [
@@ -10,6 +10,7 @@ module.exports = function shopifyNonStandardPlugins(options = {}) {
         regenerator: true,
       },
     ],
+    require.resolve('@babel/plugin-proposal-decorators'),
   ];
 
   if (inlineEnv) {
@@ -18,5 +19,5 @@ module.exports = function shopifyNonStandardPlugins(options = {}) {
     );
   }
 
-  return plugins;
+  return {plugins};
 };

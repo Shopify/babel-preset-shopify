@@ -1,5 +1,3 @@
-const nonStandardPlugins = require('./non-standard-plugins');
-
 module.exports = function shopifyNodePreset(context, options = {}) {
   const {
     version = 'current',
@@ -16,7 +14,7 @@ module.exports = function shopifyNodePreset(context, options = {}) {
         },
       }],
       require.resolve('@babel/preset-stage-3'),
+      [require.resolve('./non-standard'), options],
     ],
-    plugins: nonStandardPlugins(options),
   };
 };

@@ -1,5 +1,4 @@
 const browsers = require('./browsers');
-const nonStandardPlugins = require('./non-standard-plugins');
 
 module.exports = function shopifyWebPreset(context, options = {}) {
   const {modules = 'commonjs'} = options;
@@ -14,9 +13,10 @@ module.exports = function shopifyWebPreset(context, options = {}) {
         },
       }],
       [require.resolve('@babel/preset-stage-3'), {
+        loose: true,
         useBuiltIns: true,
       }],
+      [require.resolve('./non-standard'), options],
     ],
-    plugins: nonStandardPlugins(options),
   };
 };
