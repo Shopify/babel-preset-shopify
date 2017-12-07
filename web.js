@@ -8,7 +8,7 @@ module.exports = function shopifyWebPreset(context, options = {}) {
     presets: [
       [require.resolve('@babel/preset-env'), {
         modules,
-        useBuiltIns: true,
+        useBuiltIns: 'usage',
         targets: {
           browsers: options.browsers || browsers,
         },
