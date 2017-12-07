@@ -1,5 +1,7 @@
-module.exports = {
-  presets: [
-    require.resolve('@babel/preset-flow'),
-  ],
+module.exports = function shopifyFlowPreset() {
+  return {
+    presets: [
+      require.resolve('@babel/preset-flow'),
+    ],
+  };
 };

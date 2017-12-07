@@ -1,5 +1,7 @@
-module.exports = {
-  presets: [
-    require.resolve('@babel/preset-typescript'),
-  ],
+module.exports = function shopifyTypeScriptPreset() {
+  return {
+    presets: [
+      require.resolve('@babel/preset-typescript'),
+    ],
+  };
 };
