@@ -1,4 +1,3 @@
-const browsers = require('./browsers');
 const nonStandardPlugins = require('./non-standard-plugins');
 
 module.exports = function shopifyWebPreset(context, options = {}) {
@@ -10,7 +9,7 @@ module.exports = function shopifyWebPreset(context, options = {}) {
         modules,
         useBuiltIns: true,
         targets: {
-          browsers: options.browsers || browsers,
+          browsers: options.browsers,
         },
         debug: options.debug || false,
       }],
