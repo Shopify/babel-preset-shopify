@@ -1,41 +1,28 @@
-module.exports = function shopifyReactPreset(context, options = {}) {
+module.exports = function shopifyReactPreset(_context, options = {}) {
   // eslint-disable-next-line no-process-env
   const env = process.env.BABEL_ENV || process.env.NODE_ENV;
 
   const pragma = options.pragma || 'React.createElement';
-  const plugins = [
-    // Make JSX spread operator use Object.assign instead of the Babel helper
-    [require.resolve('babel-plugin-transform-react-jsx'), {
-      useBuiltIns: true,
-      pragma,
-    }],
-  ];
+  const pragmaFrag = options.pragmaFrag || 'React.Fragment';
+  const plugins = [];
 
   if (env === 'production') {
     plugins.push(
       // Hoist constant JSX elements to the top of their scope, which can
       // result in faster reconciliation
-      require.resolve('babel-plugin-transform-react-constant-elements'),
+      require.resolve('@babel/plugin-transform-react-constant-elements'),
     );
   }
 
-  if (env === 'development' || env === 'test') {
-    plugins.push(
-      // Adds __self attribute to JSX which React will use for some warnings
-      require.resolve('babel-plugin-transform-react-jsx-self'),
-      // Adds component stack to warning messages
-      require.resolve('babel-plugin-transform-react-jsx-source'),
+  const isDevelopment = (env === 'development') || (env === 'test');
+  if (isDevelopment && options.hot) {
+    plugins.unshift(
+      // Enable hot loading
+      require.resolve('react-hot-loader/babel'),
+      // Force `PureComponent`s to be `Component`s instead, which will make it
+      // so they always re-render on hot reloads
+      require.resolve('babel-plugin-transform-react-pure-to-component'),
     );
-
-    if (options.hot) {
-      plugins.unshift(
-        // Enable hot loading
-        require.resolve('react-hot-loader/babel'),
-        // Force `PureComponent`s to be `Component`s instead, which will make it
-        // so they always re-render on hot reloads
-        require.resolve('babel-plugin-transform-react-pure-to-component'),
-      );
-    }
   }
 
   if (env !== 'test') {
@@ -44,7 +31,12 @@ module.exports = function shopifyReactPreset(context, options = {}) {
 
   return {
     presets: [
-      require.resolve('babel-preset-react'),
+      [require.resolve('@babel/preset-react'), {
+        useBuiltIns: true,
+        pragma,
+        pragmaFrag,
+        development: isDevelopment,
+      }],
     ],
     plugins,
   };
